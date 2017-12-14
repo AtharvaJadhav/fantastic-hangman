@@ -40,3 +40,17 @@ def get_guessed_word(secret_word, letters_guessed):
 secret_word = 'apple'
 letters_guessed = ['a', 'l', 'm', 'n', 'e']
 print(get_guessed_word(secret_word, letters_guessed))
+
+def get_available_letters(letters_guessed):
+	'''
+	letters_guessed: list (of letters), which letters have been guessed so far
+	returns: string (of letters), comprised of letters that represents which letters have not
+	  yet been guessed.
+	'''
+	alphabets = string.ascii_lowercase
+	remaining_alphabets = alphabets
+	for i in range(0, len(letters_guessed)):
+		for j in range(26):
+			if letters_guessed[i] == alphabets[j]:
+				remaining_alphabets = remaining_alphabets.replace(alphabets[j], '')
+	return remaining_alphabets
