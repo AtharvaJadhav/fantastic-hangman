@@ -1,6 +1,7 @@
 # Hangman Game
 # -----------------------------------
 
+import string
 def is_word_guessed(secret_word, letters_guessed):
 	'''
 	secret_word: string, the word the user is guessing; assumes all letters are
@@ -54,3 +55,47 @@ def get_available_letters(letters_guessed):
 			if letters_guessed[i] == alphabets[j]:
 				remaining_alphabets = remaining_alphabets.replace(alphabets[j], '')
 	return remaining_alphabets
+
+def hangman(secret_word):
+	'''
+	secret_word: string, the secret word to guess.
+	
+	Starts up an interactive game of Hangman.
+	
+	* At the start of the game, printing how many 
+	  letters the secret_word contains and how many guesses s/he starts with.
+	  
+	* The user should start with 6 guesses
+
+	* Before each round, you should display to the user how many guesses
+	  s/he has left and the letters that the user has not yet guessed.
+	
+	* Asking the user to supply one guess per round.
+	
+	* Making sure that the user puts in a letter!
+	
+	* The user receives feedback immediately after each guess about whether
+	  their guess appears in the computer's word.
+
+	* After each guess, display to the user the partially guessed word so far.
+	
+	'''
+	print('Welcome to the game Hangman!')
+	print('I am thinking of a word that is 5 letters long.')
+	print('-------------')
+	#print('You have 6 guesses left.')
+	letters_guessed = ['a', 'p', 'l', 'e']
+	i = 6
+	while True:
+		print('You have ' + str(i) + ' guesses left')
+		print('Available letters: ' + get_available_letters(letters_guessed))
+		if is_word_guessed(secret_word, letters_guessed):
+			print('Good Job! The secret word was ' + secret_word + '.')
+			break
+		i = i - 1
+
+if __name__ == "__main__":
+
+	#secret_word = choose_word(list of words)
+	secret_word = 'apple'
+	hangman(secret_word)
