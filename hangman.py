@@ -83,7 +83,7 @@ def hangman(secret_word):
 	print('Welcome to the game Hangman!')
 	print('I am thinking of a word that is 5 letters long.')
 	print('-------------')
-	#print('You have 6 guesses left.')
+	print('You have 6 guesses left.')
 	letters_guessed = ['a', 'p', 'l', 'e']
 	i = 6
 	while True:
