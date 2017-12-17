@@ -84,15 +84,27 @@ def hangman(secret_word):
 	print('I am thinking of a word that is 5 letters long.')
 	print('-------------')
 	#print('You have 6 guesses left.')
-	letters_guessed = ['a', 'p', 'l', 'e']
+	letters_guessed = []
 	i = 6
 	while True:
+		letters_guessed.insert(0, input())
+		print(letters_guessed)
 		print('You have ' + str(i) + ' guesses left')
 		print('Available letters: ' + get_available_letters(letters_guessed))
 		if is_word_guessed(secret_word, letters_guessed):
 			print('Good Job! The secret word was ' + secret_word + '.')
 			break
+		if i == 0:
+			print('You failed. The secret word was ' + secret_word + '.')
+			break
 		i = i - 1
+	print('Would you like to play again? (y/n)')
+	if input() == 'y':
+		hangman(secret_word)
+	elif input() == 'n':
+		sys.exit()
+	else:
+		print('Please enter a valid choice. (y/n)')
 
 if __name__ == "__main__":
 
