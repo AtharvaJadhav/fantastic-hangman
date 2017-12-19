@@ -2,6 +2,38 @@
 # -----------------------------------
 
 import string
+import sys
+import random
+
+WORDLIST_FILENAME = "words.txt"
+
+def load_words():
+	"""
+	Returns a list of valid words. Words are strings of lowercase letters.
+	
+	Depending on the size of the word list, this function may
+	take a while to finish.
+	"""
+	#print("Loading word list from file...")
+	# inFile: file
+	inFile = open(WORDLIST_FILENAME, 'r')
+	# line: string
+	line = inFile.readline()
+	# wordlist: list of strings
+	wordlist = line.split()
+	#print("  ", len(wordlist), "words loaded.")
+	return wordlist
+
+def choose_word(wordlist):
+	"""
+	wordlist (list): list of words (strings)
+	
+	Returns a word from wordlist at random
+	"""
+	return random.choice(wordlist)
+
+wordlist = load_words()
+
 def is_word_guessed(secret_word, letters_guessed):
 	'''
 	secret_word: string, the word the user is guessing; assumes all letters are
@@ -16,7 +48,6 @@ def is_word_guessed(secret_word, letters_guessed):
 		for j in range(0, len(secret_word)):
 			if letters_guessed[i] == secret_word[j]:
 				word = word.replace(secret_word[j],'')
-				#print(word)
 	if word == '':
 		return True
 	return False
@@ -37,10 +68,6 @@ def get_guessed_word(secret_word, letters_guessed):
 				word[i] = letters_guessed[j] + ' '
 	spam = ''.join(word)
 	return spam
-	
-secret_word = 'apple'
-letters_guessed = ['a', 'l', 'm', 'n', 'e']
-print(get_guessed_word(secret_word, letters_guessed))
 
 def get_available_letters(letters_guessed):
 	'''
@@ -81,16 +108,16 @@ def hangman(secret_word):
 	
 	'''
 	print('Welcome to the game Hangman!')
-	print('I am thinking of a word that is 5 letters long.')
-	print('-------------')
-	#print('You have 6 guesses left.')
+	print('I am thinking of a word that is ' + str(len(secret_word)) + ' letters long.')
+	print('-----------------------------------------------')
 	letters_guessed = []
-	i = 6
+	i = 10
 	while True:
 		letters_guessed.insert(0, input())
-		print(letters_guessed)
+		#print(letters_guessed)
 		print('You have ' + str(i) + ' guesses left')
 		print('Available letters: ' + get_available_letters(letters_guessed))
+		print(get_guessed_word(secret_word, letters_guessed))
 		if is_word_guessed(secret_word, letters_guessed):
 			print('Good Job! The secret word was ' + secret_word + '.')
 			break
@@ -99,15 +126,17 @@ def hangman(secret_word):
 			break
 		i = i - 1
 	print('Would you like to play again? (y/n)')
-	if input() == 'y':
+	choice = input()
+	if choice == 'y':
+		secret_word = choose_word(wordlist)
 		hangman(secret_word)
-	elif input() == 'n':
+	elif choice == 'n':
 		sys.exit()
 	else:
 		print('Please enter a valid choice. (y/n)')
 
 if __name__ == "__main__":
 
-	#secret_word = choose_word(list of words)
-	secret_word = 'apple'
+	secret_word = choose_word(wordlist)
+	#secret_word = 'apple'
 	hangman(secret_word)
