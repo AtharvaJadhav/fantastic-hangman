@@ -1,5 +1,5 @@
 # Hangman Game
-# -----------------------------------
+# ------------
 
 import string
 import sys
